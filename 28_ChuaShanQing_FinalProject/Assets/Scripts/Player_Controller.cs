@@ -34,30 +34,30 @@ public class Player_Controller : MonoBehaviour
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) //go forward
             {
                 transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
-                transform.rotation = Quaternion.Euler(0, 0 + rotateSpeed, 0);
+                //transform.rotation = Quaternion.Euler(0, 0 + rotateSpeed, 0);
                 playerAnim.SetFloat("RunSpeed", 10);
             }
             
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) // go backward
             {
-                transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
-                transform.rotation = Quaternion.Euler(0, 180 + rotateSpeed, 0);
+                transform.Translate(Vector3.back * Time.deltaTime * walkSpeed);
+                //transform.rotation = Quaternion.Euler(0, 180 + rotateSpeed, 0);
                 playerAnim.SetFloat("RunSpeed", 10);
             }
 
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) // go leftside
             {
-                //transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
+                transform.Translate(Vector3.left * Time.deltaTime * walkSpeed);
                 //transform.rotation = Quaternion.Euler(0, -90 + rotateSpeed, 0);
-                transform.Rotate(new Vector3(0, Time.deltaTime * -rotateSpeed, 0));
+                //transform.Rotate(new Vector3(0, Time.deltaTime * -rotateSpeed, 0));
                 playerAnim.SetFloat("RunSpeed", 10);
             }
 
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) // go rightside
             {
-                //transform.Translate(Vector3.forward * Time.deltaTime * walkSpeed);
+                transform.Translate(Vector3.right * Time.deltaTime * walkSpeed);
                 //transform.rotation = Quaternion.Euler(0, 90 + rotateSpeed, 0);
-                transform.Rotate(new Vector3(0, Time.deltaTime * rotateSpeed, 0));
+                //transform.Rotate(new Vector3(0, Time.deltaTime * rotateSpeed, 0));
                 playerAnim.SetFloat("RunSpeed", 10);
             }
 
