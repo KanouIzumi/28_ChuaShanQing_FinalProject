@@ -1,35 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_Controller : MonoBehaviour
 {
+    int bulletAmount = 10;
     public float walkSpeed;
     public float rotateSpeed;
     public float damageRate;
     public float health;
-    bool IsAlive = true;
 
+    bool IsAlive = true;
+    bool canShoot = true;
 
     public Animator playerAnim;
     public Rigidbody playerRb;
 
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
+    public GameObject bulletText;
 
 
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
-        //healthPointText.GetComponent<Text>().text = "Start Function";
         //healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsAlive == true)
+        if (IsAlive == true && health > 0)
         {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) //go forward
             {
@@ -41,7 +44,7 @@ public class Player_Controller : MonoBehaviour
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) // go backward
             {
                 transform.Translate(Vector3.back * Time.deltaTime * walkSpeed);
-                //transform.rotation = Quaternion.Euler(0, 180 + rotateSpeed, 0);
+                transform.rotation = Quaternion.Euler(0, 180 + rotateSpeed, 0);
                 playerAnim.SetFloat("RunSpeed", 10);
             }
 
@@ -71,14 +74,20 @@ public class Player_Controller : MonoBehaviour
                 playerAnim.SetFloat("RunSpeed", 0);
             }
 
-            if (Input.GetKeyDown(KeyCode.Space)) //Attack
+            if (Input.GetKeyDown(KeyCode.Space) && bulletAmount>0 && canShoot == true) //Attack
             {
-                Debug.Log("Hey");
+                bulletAmount--;
+                bulletText.GetComponent<Text>().text = "Bullet Left: " + bulletAmount.ToString();
                 Instantiate(bulletPrefab, bulletSpawn.transform.position, transform.rotation);
                 playerAnim.SetTrigger("ShootTrigger");
             }
 
            
+        }
+
+        else
+        {
+            IsAlive = false;
         }
 
     }

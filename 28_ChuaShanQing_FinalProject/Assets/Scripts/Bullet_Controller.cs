@@ -6,13 +6,13 @@ public class Bullet_Controller : MonoBehaviour
 {
     public float bulletSpeed;
 
-    float zLimit = 14f;
-    float xLimit = 23f;
+    float zLimit = 50f;
+    float xLimit = 50f;
 
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 3);
+        Destroy(gameObject, 7);
     }
 
     // Update is called once per frame
