@@ -49,7 +49,7 @@ public class Player_Controller : MonoBehaviour
             {
                 transform.Translate(Vector3.left * Time.deltaTime * walkSpeed);
                 //transform.rotation = Quaternion.Euler(0, -90 + rotateSpeed, 0);
-                //transform.Rotate(new Vector3(0, Time.deltaTime * -rotateSpeed, 0));
+                transform.Rotate(new Vector3(0, Time.deltaTime * -rotateSpeed, 0));
                 playerAnim.SetFloat("RunSpeed", 10);
             }
 
@@ -57,7 +57,7 @@ public class Player_Controller : MonoBehaviour
             {
                 transform.Translate(Vector3.right * Time.deltaTime * walkSpeed);
                 //transform.rotation = Quaternion.Euler(0, 90 + rotateSpeed, 0);
-                //transform.Rotate(new Vector3(0, Time.deltaTime * rotateSpeed, 0));
+                transform.Rotate(new Vector3(0, Time.deltaTime * rotateSpeed, 0));
                 playerAnim.SetFloat("RunSpeed", 10);
             }
 
