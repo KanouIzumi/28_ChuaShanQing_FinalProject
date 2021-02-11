@@ -8,7 +8,6 @@ public class Player_Controller : MonoBehaviour
     int bulletAmount = 10;
     public float walkSpeed;
     public float rotateSpeed;
-    public float damageRate;
     public float health;
 
     bool IsAlive = true;
@@ -20,13 +19,14 @@ public class Player_Controller : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
     public GameObject bulletText;
+    public GameObject healthPointText;
 
 
     // Start is called before the first frame update
     void Start()
     {
         playerAnim = GetComponent<Animator>();
-        //healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
+        healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
     }
 
     // Update is called once per frame
@@ -92,20 +92,19 @@ public class Player_Controller : MonoBehaviour
 
     }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Fire" && IsAlive == true)
-    //    {
-    //        health -= damageRate * Time.deltaTime;
-    //        healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
-    //        if (health <= 0)
-    //        {
-    //            healthPointText.GetComponent<Text>().text = "Health: 0";
-    //            playerAnim.SetTrigger("DeadTrigger");
-    //            IsAlive = false;
-    //        }
-    //    }
-    //}
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Fire" && IsAlive == true)
+        {
+            healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
+            if (health <= 0)
+            {
+                healthPointText.GetComponent<Text>().text = "Health: 0";
+                playerAnim.SetTrigger("DeadTrigger");
+                IsAlive = false;
+            }
+        }
+    }
 
 
     private void OnCollisionEnter(Collision collision)
@@ -113,6 +112,11 @@ public class Player_Controller : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Hello");
+        }
+
+        if (collision.gameObject.CompareTag("Zombie"))
+        {
+
         }
 
     }

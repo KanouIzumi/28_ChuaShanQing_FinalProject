@@ -27,17 +27,17 @@ public class Enemy_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        navMeshAgent.SetDestination(character.transform.position);
+       navMeshAgent.SetDestination(character.transform.position);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             score +=6;
             Destroy(gameObject);
             Destroy(collision.gameObject);
-
+            Debug.Log("Hit");
             scoreText.GetComponent<Text>().text = "Score: " + score.ToString();
         }
     }
