@@ -9,9 +9,13 @@ public class Player_Controller : MonoBehaviour
     public float walkSpeed;
     public float rotateSpeed;
     public float health;
+    public float damageRate;
 
     bool IsAlive = true;
     bool canShoot = true;
+
+    private AudioSource audioSource;
+    public AudioClip[] AudioClipBGMArr;
 
     public Animator playerAnim;
     public Rigidbody playerRb;
@@ -26,6 +30,7 @@ public class Player_Controller : MonoBehaviour
     void Start()
     {
         playerAnim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
     }
 
@@ -44,7 +49,6 @@ public class Player_Controller : MonoBehaviour
             if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) // go backward
             {
                 transform.Translate(Vector3.back * Time.deltaTime * walkSpeed);
-                transform.rotation = Quaternion.Euler(0, 180 + rotateSpeed, 0);
                 playerAnim.SetFloat("RunSpeed", 10);
             }
 
@@ -92,36 +96,30 @@ public class Player_Controller : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "Fire" && IsAlive == true)
-        {
-            healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
-            if (health <= 0)
-            {
-                healthPointText.GetComponent<Text>().text = "Health: 0";
-                playerAnim.SetTrigger("DeadTrigger");
-                IsAlive = false;
-            }
-        }
-    }
-
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Hello");
+            //Debug.Log("Hello");
         }
 
-        if (collision.gameObject.CompareTag("Zombie"))
+        if (collision.gameObject.CompareTag("Zombie") && IsAlive == true)
         {
+            Debug.Log("NO");
 
+            health -= damageRate * Time.deltaTime;
+            healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
+
+            if (health == 0)
+            {
+                healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
+                playerAnim.SetTrigger("DeathTrigger");
+                IsAlive = false;
+            }
         }
 
     }
-
-
 
 
 }
