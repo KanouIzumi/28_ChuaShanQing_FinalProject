@@ -108,14 +108,14 @@ public class Player_Controller : MonoBehaviour
         {
             Debug.Log("NO");
 
-            health -= damageRate * Time.deltaTime;
+            health -=1;
             healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
 
             if (health == 0)
             {
-                healthPointText.GetComponent<Text>().text = "Health: " + health.ToString();
-                playerAnim.SetTrigger("DeathTrigger");
+                healthPointText.GetComponent<Text>().text = "Health: 0" + health.ToString();
                 IsAlive = false;
+                playerAnim.SetTrigger("DeathTrigger");
             }
         }
 

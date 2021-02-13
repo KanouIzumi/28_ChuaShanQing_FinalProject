@@ -48,6 +48,8 @@ public class Enemy_Controller : MonoBehaviour
             EnemyAnim.SetBool("NearPlayer", false);
 
         }
+
+        scoreText.GetComponent<Text>().text = "Score: " + score.ToString();
     }
 
 
@@ -56,11 +58,10 @@ public class Enemy_Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            score += 6;
+            score =+ 5;
             Destroy(gameObject);
             Destroy(collision.gameObject);
             Debug.Log("Hit");
-            scoreText.GetComponent<Text>().text = "Score: " + score.ToString();
         }
     }
 }
